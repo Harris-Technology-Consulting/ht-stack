@@ -1,0 +1,7 @@
+{
+  "database": "dolt",
+  "backend": "dolt",
+  "dolt_mode": "embedded",
+  "dolt_database": "htc_stack",
+  "project_id": "81b92ea2-fd9a-40ef-bc14-dc2502b76500"
+}
