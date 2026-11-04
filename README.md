@@ -8,38 +8,44 @@ The delivery motion we sell: work inside the organization efficiently and retool
 
 ## Current state
 
-- This private repo exists and is the factory source (rename to `ht-stack` on GitHub if still `htc-stack`).
+- Public factory repo: [`Harris-Technology-Consulting/ht-stack`](https://github.com/Harris-Technology-Consulting/ht-stack).
 - Beads ↔ Linear sync is wired for Harris tracking.
-- The `hts` CLI, `scripts/install.sh`, and shipped prompts are **not built yet**.
+- **`hts` CLI** supports interactive `init`, `enable`, `discover`, `doctor`, `prime`, `setup`.
+- `scripts/install.sh` installs a Release binary when published, otherwise clones source and wraps with bun.
+- Master + discovery prompts live in `prompts/`.
 
-## Install (target — not live yet)
-
-Requires GitHub auth to the private org (`gh auth login` or `GH_TOKEN`):
+## Install
 
 ```bash
-curl -fsSL -H "Authorization: Bearer $(gh auth token)" \
-  https://raw.githubusercontent.com/Harris-Technology-Consulting/ht-stack/main/scripts/install.sh \
-  | bash
+curl -fsSL https://raw.githubusercontent.com/Harris-Technology-Consulting/ht-stack/main/scripts/install.sh | bash
 ```
 
-Then:
+Ensure `~/.local/bin` is on your `PATH`, then:
 
 ```bash
-hts setup cursor   # or: claude | codex | t3
+hts version
+cd /path/to/exodus && hts init
 ```
 
-## Quick start (target)
+**From this repo (dev):**
 
 ```bash
-# existing repo (common)
-cd their-app && hts init && hts enable linear beads docs
+bun install
+./bin/hts version
+```
 
-# new codebase
-hts init
 
-# unattended
+## Quick start
+
+```bash
+# interactive — asks target path, ownership, harness/runner, modules, then enable+setup
+cd their-app && hts init
+
+# unattended / agents
 hts init --headless -f profile.yaml
 ```
+
+`hts init` is the guided entrypoint (pointing + prefs). `--headless` skips prompts; use a profile to enable modules/setup without a TTY.
 
 ## Commands (target)
 
@@ -77,9 +83,15 @@ hts setup claude|codex|cursor|t3
 
 These are **adapters** into licenses/harnesses they already pay for. HT Stack ships context, tickets, prompts, and modules — not the brain. Bring-your-own agent remains the long-term default as the surface widens.
 
-## Secrets
+## Secrets + tenant config
 
-Secrets never belong in git. API tokens and similar go in a local secret store / host auth — never commit them.
+See [`docs/tenant-config.md`](docs/tenant-config.md).
+
+- **Preference** (harness, runner, ownership, forge): `.hts/config.yaml`
+- **HT Stack secrets**: `.hts/secrets.env` (gitignored); example at `.hts/secrets.env.example`
+- **Linear for beads**: `.beads/config.local.yaml` (gitignored) — secrets live with the consumer
+- Cloud runners: same keys in harness/Cloud env
+- `hts doctor` checks presence; never prints values
 
 ## Modes
 

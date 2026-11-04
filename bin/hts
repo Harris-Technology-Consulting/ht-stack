@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+if command -v bun >/dev/null 2>&1; then
+  exec bun "$ROOT/src/cli.ts" "$@"
+fi
+echo "hts: bun is required to run the CLI from source. Install: https://bun.sh" >&2
+exit 1

@@ -1,0 +1,9 @@
+# HT Stack tenant preference (not secrets)
+# Opinionated layout/prompts live elsewhere; do not put API keys here.
+version: 1
+ownership: harris-product  # factory | harris-product | client
+harness: cursor  # cursor | claude | codex | t3
+runner: local  # local | cloud (BYO cloud driver OK)
+model: ""  # empty = harness default
+forge: github  # github implemented; others preference-only for now
+forgeNote: "Prototype implements GitHub only; gitlab/bitbucket are reserved preference values."

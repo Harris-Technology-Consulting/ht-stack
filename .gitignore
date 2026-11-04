@@ -1,8 +1,22 @@
-
 # Beads / Dolt files (added by bd init)
 .dolt/
 *.db
 .beads-credential-key
 .beads/proxieddb/
 .beads/.env
+.beads/config.local.yaml
 *.gate.lock*
+
+# HT Stack CLI
+node_modules/
+dist/
+.hts/secrets.env
+.hts/discovery/intake.md
+
+# Local restored chat dumps (not product)
+.cursor/restored-from-htc-stack/
+
+# OS / editor
+.DS_Store
+*.swp
+

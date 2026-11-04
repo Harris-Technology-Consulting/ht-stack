@@ -1,0 +1,13 @@
+# Example headless profile for: hts init --headless -f profile.yaml
+target: "."
+ownership: harris-product
+harness: cursor
+runner: local
+model: ""
+forge: github
+setup: true
+modules:
+  - beads
+  - linear
+  - agents
+  - docs
