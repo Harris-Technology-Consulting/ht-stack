@@ -78,11 +78,19 @@ install_from_source() {
   local persist="${HTS_HOME:-$HOME/.hts}/src"
   mkdir -p "$(dirname "$persist")"
   rm -rf "$persist"
+  # Prefer main (factory branch); fall back to repo default if needed
+  local branch="${HTS_BRANCH:-main}"
+  local clone_url
   if [[ -n "$token" ]]; then
-    git clone --depth 1 "https://x-access-token:${token}@github.com/${REPO}.git" "$persist"
+    clone_url="https://x-access-token:${token}@github.com/${REPO}.git"
   else
-    git clone --depth 1 "https://github.com/${REPO}.git" "$persist"
+    clone_url="https://github.com/${REPO}.git"
   fi
+  if ! git clone --depth 1 --branch "$branch" "$clone_url" "$persist" 2>/dev/null; then
+    rm -rf "$persist"
+    git clone --depth 1 "$clone_url" "$persist"
+  fi
+
   mkdir -p "$INSTALL_DIR"
   cat > "$INSTALL_DIR/hts" <<EOF
 #!/usr/bin/env bash
