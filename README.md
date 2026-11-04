@@ -17,7 +17,7 @@ The delivery motion we sell: work inside the organization efficiently and retool
 ## Install
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Harris-Technology-Consulting/ht-stack/main/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/Harris-Technology-Consulting/ht-stack/master/scripts/install.sh | bash
 ```
 
 Ensure `~/.local/bin` is on your `PATH`, then:

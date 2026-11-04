@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # HT Stack installer — public GitHub Releases (token optional).
 # Usage:
-#   curl -fsSL https://raw.githubusercontent.com/Harris-Technology-Consulting/ht-stack/main/scripts/install.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/Harris-Technology-Consulting/ht-stack/master/scripts/install.sh | bash
 set -euo pipefail
 
 REPO="${HTS_REPO:-Harris-Technology-Consulting/ht-stack}"
@@ -78,18 +78,15 @@ install_from_source() {
   local persist="${HTS_HOME:-$HOME/.hts}/src"
   mkdir -p "$(dirname "$persist")"
   rm -rf "$persist"
-  # Prefer main (factory branch); fall back to repo default if needed
-  local branch="${HTS_BRANCH:-main}"
+  local branch="${HTS_BRANCH:-master}"
   local clone_url
   if [[ -n "$token" ]]; then
     clone_url="https://x-access-token:${token}@github.com/${REPO}.git"
   else
     clone_url="https://github.com/${REPO}.git"
   fi
-  if ! git clone --depth 1 --branch "$branch" "$clone_url" "$persist" 2>/dev/null; then
-    rm -rf "$persist"
-    git clone --depth 1 "$clone_url" "$persist"
-  fi
+  git clone --depth 1 --branch "$branch" "$clone_url" "$persist"
+
 
   mkdir -p "$INSTALL_DIR"
   cat > "$INSTALL_DIR/hts" <<EOF
